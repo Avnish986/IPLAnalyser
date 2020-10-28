@@ -71,4 +71,14 @@ public class IPLAnalysis {
 		}
 	}
 
+	public String sortAccordingToStrikeRate() throws WrongCSVException {
+		if (runList== null || runList.size() == 0) {
+			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
+		}
+		Comparator<CSVRuns> censusComparator = Comparator.comparing(ipl -> ipl.sr);
+		this.sort(runList, censusComparator);
+		String sortedBatting  = new Gson().toJson(runList);
+		return sortedBatting;
+	}
+
 }
