@@ -1,4 +1,5 @@
 package com.analysis;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -10,6 +11,7 @@ import com.analysis.dto.*;
 import com.csv.*;
 import com.csv.WrongCSVException.ExceptionType;
 import com.google.gson.Gson;
+
 public class IPLAnalysis {
 	List<CSVRuns> runList = null;
 	List<CSVWickets> wicketList = null;
@@ -22,8 +24,7 @@ public class IPLAnalysis {
 			return runList.size();
 		} catch (IOException e) {
 			throw new WrongCSVException("File not found", WrongCSVException.ExceptionType.WRONG_CSV);
-		}
-		catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 			throw new WrongCSVException("File data not proper", WrongCSVException.ExceptionType.WRONG_HEADER);
 
 		} catch (WrongCSVException e) {
@@ -39,8 +40,7 @@ public class IPLAnalysis {
 			return wicketList.size();
 		} catch (IOException e) {
 			throw new WrongCSVException("File not found", WrongCSVException.ExceptionType.WRONG_CSV);
-		}
-		catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 			throw new WrongCSVException("File data not proper", WrongCSVException.ExceptionType.WRONG_HEADER);
 
 		} catch (WrongCSVException e) {
@@ -49,12 +49,12 @@ public class IPLAnalysis {
 	}
 
 	public String sortAccordingToBattingAverage() throws WrongCSVException {
-		if (runList== null || runList.size() == 0) {
+		if (runList == null || runList.size() == 0) {
 			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
 		}
 		Comparator<CSVRuns> censusComparator = Comparator.comparing(ipl -> ipl.getAvg());
 		this.sort(runList, censusComparator);
-		String sortedBatting  = new Gson().toJson(runList);
+		String sortedBatting = new Gson().toJson(runList);
 		return sortedBatting;
 	}
 
@@ -72,12 +72,22 @@ public class IPLAnalysis {
 	}
 
 	public String sortAccordingToStrikeRate() throws WrongCSVException {
-		if (runList== null || runList.size() == 0) {
+		if (runList == null || runList.size() == 0) {
 			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
 		}
 		Comparator<CSVRuns> censusComparator = Comparator.comparing(ipl -> ipl.sr);
 		this.sort(runList, censusComparator);
-		String sortedBatting  = new Gson().toJson(runList);
+		String sortedBatting = new Gson().toJson(runList);
+		return sortedBatting;
+	}
+
+	public String sortAccordingToMostSixesPlusFours() throws WrongCSVException {
+		if (runList == null || runList.size() == 0) {
+			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
+		}
+		Comparator<CSVRuns> censusComparator = Comparator.comparing(ipl -> ipl.sixes + ipl.fours);
+		this.sort(runList, censusComparator);
+		String sortedBatting = new Gson().toJson(runList);
 		return sortedBatting;
 	}
 
