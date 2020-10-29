@@ -36,7 +36,7 @@ public class CSVRuns {
 	public double sr;
 
 	@CsvBindByName(column = "100")
-	int hundreds;
+	public int hundreds;
 
 	@CsvBindByName(column = "50")
 	public int fiftys;
