@@ -46,15 +46,12 @@ public class CSVRuns {
 
 	@CsvBindByName(column = "6s")
 	public int sixes;
-	
 
-	
 	public double getAvg() {
-		if(avg.equals("-")) {
+		if (avg.equals("-")) {
 			return 0;
 		}
 		return Double.parseDouble(avg);
 	}
-
 
 }
