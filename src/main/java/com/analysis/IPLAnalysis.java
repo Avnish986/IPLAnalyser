@@ -164,5 +164,16 @@ public class IPLAnalysis {
 		String sortedBatting = new Gson().toJson(wicketList);
 		return sortedBatting;
 	}
+	
+	public String sortAccordingToGreatBowlingAveragesWithBestStrikingRate() throws WrongCSVException {
+		if (wicketList == null || wicketList.size() == 0) {
+			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
+		}
+		Comparator<CSVWickets> censusComparator = Comparator.comparing(ipl -> ipl.getSR());
+		this.sort(wicketList, censusComparator);
+		wicketList.stream().sorted(Comparator.comparing(ipl -> ipl.getAvg()));
+		String sortedBatting = new Gson().toJson(wicketList);
+		return sortedBatting;
+	}
 
 }
