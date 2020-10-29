@@ -233,5 +233,16 @@ public class IPLAnalysis {
 		}
 		return bestList;
 	}
+	
+	public String sortAccordingPlayerWithMaximum100WithGreatBattingAverages() throws WrongCSVException {
+		if (runList == null || runList.size() == 0) {
+			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
+		}
+		Comparator<CSVRuns> censusComparator = Comparator.comparing(ipl -> ipl.runs);
+		this.sort(runList, censusComparator);
+		runList.stream().sorted(Comparator.comparing(ipl -> ipl.hundreds));
+		String sortedBatting = new Gson().toJson(runList);
+		return sortedBatting;
+	}
 
 }
