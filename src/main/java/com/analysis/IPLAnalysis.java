@@ -112,6 +112,17 @@ public class IPLAnalysis {
 		String sortedBatting = new Gson().toJson(runList);
 		return sortedBatting;
 	}
+
+	public String sortAccordingToHitMaximumRunsWithBestAverage() throws WrongCSVException {
+		if (runList == null || runList.size() == 0) {
+			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
+		}
+		Comparator<CSVRuns> censusComparator = Comparator.comparing(ipl -> ipl.getAvg());
+		this.sort(runList, censusComparator);
+		runList.stream().sorted(Comparator.comparing(ipl -> ipl.runs));
+		String sortedBatting = new Gson().toJson(runList);
+		return sortedBatting;
+	}
 	
 
 

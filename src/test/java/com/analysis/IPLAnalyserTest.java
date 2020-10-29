@@ -95,4 +95,19 @@ public class IPLAnalyserTest {
 		CSVRuns[] censusCsv = new Gson().fromJson(data, CSVRuns[].class);
 		Assert.assertEquals("Ishant Sharma", censusCsv[100].player);
 	}
+	
+	@Test
+	public void givenMostRunsCSVFile_ShouldSortAccordingToBestRunsWithBestAverage() {
+		int noOfEntries = 0;
+		String data = null;
+		try {
+			noOfEntries = iplAnalyser.loadRunsCSV(RunsCSVFile);
+			data = iplAnalyser.sortAccordingToHitMaximumRunsWithBestAverage();
+		} catch (WrongCSVException e) {
+			System.out.println(e.getMessage());
+		}
+		System.out.println(data);
+		CSVRuns[] censusCsv = new Gson().fromJson(data, CSVRuns[].class);
+		Assert.assertEquals("MS Dhoni", censusCsv[100].player);
+	}
 }
