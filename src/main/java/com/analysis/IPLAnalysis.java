@@ -124,14 +124,5 @@ public class IPLAnalysis<E> {
 		return sortedBatting;
 	}
 
-	public String sortAccordingToBowlingAverage() throws WrongCSVException {
-		if (wicketList.size() == 0 || wicketList == null) {
-			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
-		}
-		Comparator<CSVWickets> censusComparator = Comparator.comparing(ipl -> ipl.getAvg());
-		this.sort(wicketList, censusComparator);
-		String sortedBatting = new Gson().toJson(wicketList);
-		return sortedBatting;
-	}
 
 }
