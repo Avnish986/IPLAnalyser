@@ -1,6 +1,7 @@
 package com.analysis;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -110,7 +111,7 @@ public class IPLAnalyserTest {
 		CSVRuns[] censusCsv = new Gson().fromJson(data, CSVRuns[].class);
 		Assert.assertEquals("MS Dhoni", censusCsv[100].player);
 	}
-	
+
 	@Test
 	public void givenMostRunsCSVFile_ShouldSortAccordingToMAximum100WithBestAverage() {
 		int noOfEntries = 0;
@@ -124,5 +125,18 @@ public class IPLAnalyserTest {
 		System.out.println(data);
 		CSVRuns[] censusCsv = new Gson().fromJson(data, CSVRuns[].class);
 		Assert.assertEquals("David Warner ", censusCsv[100].player);
+	}
+
+	@Test
+	public void givenMostRunsCSVFile_ShouldReturn_BestBattingAverageButWithZero100sAndZero50s() {
+		int noOfEntries = 0;
+		List<CSVRuns> data = null;
+		try {
+			noOfEntries = iplAnalyser.loadRunsCSV(RunsCSVFile);
+			data = iplAnalyser.getPlayerWithZero100sOrZero50sButBestBattingAverage();
+		} catch (WrongCSVException e) {
+			System.out.println(e.getMessage());
+		}
+		Assert.assertEquals("Marcus Stoinis", data.get(55).player);
 	}
 }
