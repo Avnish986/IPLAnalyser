@@ -93,6 +93,6 @@ public class IPLAnalyserTest {
 		}
 		System.out.println(data);
 		CSVRuns[] censusCsv = new Gson().fromJson(data, CSVRuns[].class);
-		Assert.assertEquals("MS Dhoni", censusCsv[100].player);
+		Assert.assertEquals("Ishant Sharma", censusCsv[100].player);
 	}
 }

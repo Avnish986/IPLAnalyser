@@ -106,11 +106,13 @@ public class IPLAnalysis {
 		if (runList == null || runList.size() == 0) {
 			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
 		}
-		Comparator<CSVRuns> censusComparator = Comparator.comparing(ipl -> ipl.getAvg());
+		Comparator<CSVRuns> censusComparator = Comparator.comparing(ipl -> ipl.sr);
 		this.sort(runList, censusComparator);
-		runList.stream().sorted(Comparator.comparing(ipl -> ipl.sr));
+		runList.stream().sorted(Comparator.comparing(ipl -> ipl.getAvg()));
 		String sortedBatting = new Gson().toJson(runList);
 		return sortedBatting;
 	}
+	
+
 
 }
