@@ -211,5 +211,27 @@ public class IPLAnalysis {
 		}
 		return bestList;
 	}
+	
+	public List<String> getAllRounderWithMostRunsAndWickets() {
+
+		List<String> bestList = new ArrayList<>();
+
+		List<CSVRuns> battingAvg = runList.stream()
+				.sorted((playerA, playerB) -> Double.compare(playerA.runs, playerB.runs))
+				.collect(Collectors.toList());
+
+		List<CSVWickets> bowlingAvg = wicketList.stream()
+				.sorted((playerA, playerB) -> Double.compare(playerA.wkts, playerB.wkts))
+				.collect(Collectors.toList());
+
+		for (CSVRuns playerBat : battingAvg) {
+			for (CSVWickets playerBowler : bowlingAvg) {
+				if (playerBat.player.equals(playerBowler.player)) {
+					bestList.add(playerBat.player);
+				}
+			}
+		}
+		return bestList;
+	}
 
 }

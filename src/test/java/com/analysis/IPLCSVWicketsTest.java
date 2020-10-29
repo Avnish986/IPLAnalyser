@@ -128,5 +128,22 @@ public class IPLCSVWicketsTest {
 		Assert.assertEquals("Andre Russell", data.get(48));
 		Assert.assertEquals("Marcus Stoinis", data.get(47));
 	}
+	
+	@Test
+	public void givenWicketsCSVFileRunsCSVFile_ShouldReturn_BestAllRounderWithMostRunsAndWickets() {
+		int noOfEntriesA = 0;
+		int noOfEntriesB = 0;
+		List<String> data = null;
+		try {
+			noOfEntriesA = iplAnalyser.loadWicketsCSV(WicketsCSVFile);
+			noOfEntriesB = iplAnalyser.loadRunsCSV(RunsCSVFile);
+			data = iplAnalyser.getAllRounderWithMostRunsAndWickets();
+		} catch (WrongCSVException e) {
+			System.out.println(e.getMessage());
+		}
+		System.out.println(data);		
+		Assert.assertEquals("Andre Russell", data.get(48));
+		Assert.assertEquals("Hardik Pandya", data.get(47));
+	}
 
 }
