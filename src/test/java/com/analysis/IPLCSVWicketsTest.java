@@ -95,5 +95,20 @@ public class IPLCSVWicketsTest {
 		CSVWickets[] censusCsv = new Gson().fromJson(data, CSVWickets[].class);
 		Assert.assertEquals("Krishnappa Gowtham", censusCsv[98].player);
 	}
+	
+	@Test
+	public void givenWicketsCSVFile_ShouldSort_AccordingPlayerTakingMaximumWicketsWithGreatBowlingAverage() {
+		int noOfEntries = 0;
+		String data = null;
+		try {
+			noOfEntries = iplAnalyser.loadWicketsCSV(WicketsCSVFile);
+			data = iplAnalyser.sortAccordingPlayerWithMaximumWicketsWithGreatBowlingAverages();
+		} catch (WrongCSVException e) {
+			System.out.println(e.getMessage());
+		}
+		System.out.println(data);
+		CSVWickets[] censusCsv = new Gson().fromJson(data, CSVWickets[].class);
+		Assert.assertEquals("Imran Tahir", censusCsv[98].player);
+	}
 
 }
