@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.analysis.dto.*;
 import com.csv.*;
@@ -153,18 +156,18 @@ public class IPLAnalysis {
 		String sortedBatting = new Gson().toJson(wicketList);
 		return sortedBatting;
 	}
-	
+
 	public String sortAccordingToBestStrikingRateWith5wAnd4w() throws WrongCSVException {
 		if (wicketList == null || wicketList.size() == 0) {
 			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
 		}
-		Comparator<CSVWickets> censusComparator = Comparator.comparing(ipl -> ipl.four+ipl.five);
+		Comparator<CSVWickets> censusComparator = Comparator.comparing(ipl -> ipl.four + ipl.five);
 		this.sort(wicketList, censusComparator);
 		wicketList.stream().sorted(Comparator.comparing(ipl -> ipl.getSR()));
 		String sortedBatting = new Gson().toJson(wicketList);
 		return sortedBatting;
 	}
-	
+
 	public String sortAccordingToGreatBowlingAveragesWithBestStrikingRate() throws WrongCSVException {
 		if (wicketList == null || wicketList.size() == 0) {
 			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
@@ -175,7 +178,7 @@ public class IPLAnalysis {
 		String sortedBatting = new Gson().toJson(wicketList);
 		return sortedBatting;
 	}
-	
+
 	public String sortAccordingPlayerWithMaximumWicketsWithGreatBowlingAverages() throws WrongCSVException {
 		if (wicketList == null || wicketList.size() == 0) {
 			throw new WrongCSVException("File error", WrongCSVException.ExceptionType.WRONG_HEADER);
@@ -185,6 +188,28 @@ public class IPLAnalysis {
 		wicketList.stream().sorted(Comparator.comparing(ipl -> ipl.getAvg()));
 		String sortedBatting = new Gson().toJson(wicketList);
 		return sortedBatting;
+	}
+
+	public List<String> getBestBowlerAndBattingAverage() {
+
+		List<String> bestList = new ArrayList<>();
+
+		List<CSVRuns> battingAvg = runList.stream()
+				.sorted((playerA, playerB) -> Double.compare(playerA.getAvg(), playerB.getAvg()))
+				.collect(Collectors.toList());
+
+		List<CSVWickets> bowlingAvg = wicketList.stream()
+				.sorted((playerA, playerB) -> Double.compare(playerA.getAvg(), playerB.getAvg()))
+				.collect(Collectors.toList());
+
+		for (CSVRuns playerBat : battingAvg) {
+			for (CSVWickets playerBowler : bowlingAvg) {
+				if (playerBat.player.equals(playerBowler.player)) {
+					bestList.add(playerBat.player);
+				}
+			}
+		}
+		return bestList;
 	}
 
 }

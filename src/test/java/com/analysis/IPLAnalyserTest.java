@@ -50,7 +50,7 @@ public class IPLAnalyserTest {
 		CSVRuns[] censusCsv = new Gson().fromJson(data, CSVRuns[].class);
 		Assert.assertEquals("Ishant Sharma", censusCsv[100].player);
 	}
-	
+
 	@Test
 	public void givenMostRunsCSVFile_ShouldLoadAndSortAccordingToMostSixesAndFours() {
 		int noOfEntries = 0;
@@ -65,7 +65,7 @@ public class IPLAnalyserTest {
 		CSVRuns[] censusCsv = new Gson().fromJson(data, CSVRuns[].class);
 		Assert.assertEquals("Andre Russell", censusCsv[100].player);
 	}
-	
+
 	@Test
 	public void givenMostRunsCSVFile_ShouldSortAccordingToMostStrikeRateWithMostSixesAndMostFours() {
 		int noOfEntries = 0;
@@ -80,7 +80,7 @@ public class IPLAnalyserTest {
 		CSVRuns[] censusCsv = new Gson().fromJson(data, CSVRuns[].class);
 		Assert.assertEquals("Andre Russell", censusCsv[100].player);
 	}
-	
+
 	@Test
 	public void givenMostRunsCSVFile_ShouldSortAccordingToBestAverageWithBestStrikeRate() {
 		int noOfEntries = 0;
@@ -95,7 +95,7 @@ public class IPLAnalyserTest {
 		CSVRuns[] censusCsv = new Gson().fromJson(data, CSVRuns[].class);
 		Assert.assertEquals("Ishant Sharma", censusCsv[100].player);
 	}
-	
+
 	@Test
 	public void givenMostRunsCSVFile_ShouldSortAccordingToBestRunsWithBestAverage() {
 		int noOfEntries = 0;
