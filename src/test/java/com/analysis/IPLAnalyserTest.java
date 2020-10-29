@@ -52,12 +52,27 @@ public class IPLAnalyserTest {
 	}
 	
 	@Test
-	public void givenMostRunsCSVFile_ShouldLoadAndSortAccordingToMostSixes() {
+	public void givenMostRunsCSVFile_ShouldLoadAndSortAccordingToMostSixesAndFours() {
 		int noOfEntries = 0;
 		String data = null;
 		try {
 			noOfEntries = iplAnalyser.loadRunsCSV(RunsCSVFile);
 			data = iplAnalyser.sortAccordingToMostSixesPlusFours();
+		} catch (WrongCSVException e) {
+			System.out.println(e.getMessage());
+		}
+		System.out.println(data);
+		CSVRuns[] censusCsv = new Gson().fromJson(data, CSVRuns[].class);
+		Assert.assertEquals("Andre Russell", censusCsv[100].player);
+	}
+	
+	@Test
+	public void givenMostRunsCSVFile_ShouldSortAccordingToMostStrikeRateWithMostSixesAndMostFours() {
+		int noOfEntries = 0;
+		String data = null;
+		try {
+			noOfEntries = iplAnalyser.loadRunsCSV(RunsCSVFile);
+			data = iplAnalyser.sortAccordingToBestStrikingRateWithMostSixesPlusFours();
 		} catch (WrongCSVException e) {
 			System.out.println(e.getMessage());
 		}
